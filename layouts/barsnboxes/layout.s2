@@ -1,0 +1,64 @@
+
+
+layerinfo "type" = "layout";
+layerinfo "name" = "Bars and Boxes";
+
+property Color clr_titlebar {
+    des = "Color of the title bar";
+}
+property Color clr_title {
+    des = "Color of the title text";
+}
+property Color clr_boxes {
+    des = "Color of the little rectangles at the side";
+}
+
+set clr_titlebar = "#BABED6";
+set clr_title = "#000000";
+set clr_boxes = "#125C8D";
+set clr_background = "#DDDDDD";
+set clr_foreground = "#000000";
+
+function sidebar(Graphics g) {
+    $g->fillRect(0,0,40,$g.height-1,$*clr_titlebar);
+
+    $g->fillRect(0,0,20,75,$*clr_boxes);
+    $g->fillRect(0,100,20,175,$*clr_boxes);
+    $g->fillRect(0,200,20,275,$*clr_boxes);
+}
+
+function TitleSlide::draw(Graphics g) {
+    var Font titlefont = $*font_base->scale(150);
+    var int th = $titlefont->getHeight() + 10;
+    var int ty = ($g.height / 2) - ($th / 2);
+
+    sidebar($g);
+
+    if ($.presentation.subtitle != "") {
+        $g->drawTextCentered($.presentation.subtitle,40,$ty+$th,$g.width-1,$ty+$th+$*font_base->getHeight() + 10,$*font_base,$*clr_foreground);
+        $ty = $ty - (($*font_base->getHeight() + 10) / 2);
+        if ($.presentation.author != "") {
+            var Font authorfont = $*font_base->scale(75);
+            $g->drawTextCentered($.presentation.author,40,$g.height-$*font_base->getHeight()-50,$g.width-1,$g.height-1,$authorfont,$*clr_foreground);
+        }
+    }
+    elseif ($.presentation.author != "") {
+        $g->drawTextCentered($.presentation.author,40,$ty+$th,$g.width-1,$ty+$th+$*font_base->getHeight() + 10,$*font_base,$*clr_foreground);
+        $ty = $ty - (($*font_base->getHeight() + 10) / 2);
+    }
+    $g->fillRect(40,0,$g.width-1,$ty+$th+10,$*clr_titlebar);
+    $g->drawTextCentered($.presentation.title,40,$ty,$g.width-1,$ty+$th,$titlefont,$*clr_foreground);
+}
+
+function TitledSlide::draw(Graphics g) {
+    var Font titlefont = $*font_base->scale(150);
+    var int th = $titlefont->getHeight() + 20;
+
+    sidebar($g);
+
+    $g->fillRect(40,0,$g.width-1,$th+20,$*clr_titlebar);
+    $g->drawTextCentered($.title,40,0,$g.width-1,$th+20, $titlefont,$*clr_foreground);
+    $g->drawObject($.body, 50, $th+30, $g.width-11, $g.height-11);
+
+}
+

@@ -1,0 +1,311 @@
+
+
+layerinfo "type" = "core";
+layerinfo "name" = "zePresent Core Layer";
+layerinfo "majorversion" = 1;
+
+# Some fundamental classes/types
+class int "An integer number.  This isn't really a class, as suggested by its lower-case name.  Parameters of type int pass by value, unlike all variables of real object types, which pass by reference.  Instead, this is just a pseudo-class which provides convenience methods on instances of integers.  The other pseudo-class is [class[string]]."
+{
+    function builtin zeroPad(int digits) : string
+    "Return the integer as a string formatted at least \$digits characters long, left-padded with zeroes.";
+}
+
+class string "A series of characters.  This isn't really a class, as suggested by its lower-case name.  Parameters of type string pass by value, unlike all variables of real object types, which pass by reference.  Instead, this is just a pseudo-class which provides convenience methods on instances of strings.  The other pseudo-class is [class[int]]."
+{
+    function builtin subString(int start, int length) : string
+    "Returns up to \$length characters from string, skipping \$start characters from the beginning.";
+
+    function builtin endsWith (string sub) : bool
+    "Returns true if string ends in \$sub";
+
+    function builtin startsWith (string sub) : bool
+    "Returns true if string begins with \$sub";
+
+    function builtin contains (string sub) : bool
+    "Return true if string contains \$sub";
+
+    function builtin lower : string
+    "Returns string in lower case.";
+
+    function builtin upper : string
+    "Returns string in upper case";
+
+    function builtin upperFirst : string
+    "Return string with the first character capitalized.";
+
+    function builtin length() : int
+    "Return the number of characters in the string.";
+
+    function builtin repeat(int n) : string
+    "Returns the string repeated n times";
+}
+class bool {}
+class Color "Represents a color." {
+  var readonly int r "Red value, 0-255.";
+  var readonly int g "Green value, 0-255.";
+  var readonly int b "Blue value, 0-255.";
+  var string as_string "HTML hex encoded: #rrggbb";
+  function builtin Color(string s) : Color "Constructor for color class.  Lets you make a Color object from a string of form #rrggbb";
+  function builtin set_hsl(int h, int s, int v) "Set a color by hue, saturation and lightness.";
+
+  function builtin red(int r) "Set the red value. (0-255)";
+  function builtin green(int g) "Set the green value. (0-255)";
+  function builtin blue(int b) "Set the blue value. (0-255)";
+  function builtin red() : int "Get the red value.";
+  function builtin green() : int "Get the green value.";
+  function builtin blue() : int "Get the blue value.";
+
+  function builtin hue(int h) "Set the hue value. (0-255)";
+  function builtin saturation(int s) "Set the saturation value. (0-255)";
+  function builtin lightness(int v) "Set the lightness value. (0-255)";
+  function builtin hue() : int "Get the hue value. (0-255)";
+  function builtin saturation() : int "Get the saturation value. (0-255)";
+  function builtin lightness() : int "Get the lightness value. (0-255)";
+
+  function builtin clone() : Color "Returns identical color.";
+  function builtin lighter() : Color "Returns a new color with lightness increased by 30.";
+  function builtin lighter(int amt) : Color "Returns a new color with lightness increased by amount given.";
+  function builtin darker() : Color "Returns a new color with lightness decreased by 30.";
+  function builtin darker(int amt) : Color "Returns a new color with lightness decreased by amount given.";
+  function builtin inverse() : Color "Returns inverse of color.";
+  function builtin average(Color other) : Color "Returns color averaged with \$other color.";
+}
+
+class Font {
+    function builtin Font(string fontspec) : Font
+        "Internal constructor allowing font properties to be initialized from strings.";
+    function builtin scale(int percent) : Font
+        "Scale this font to obtain a new font.";
+    function builtin getWidth(string str) : int
+        "Get the width of the given string in this font, in pixels.";
+    function builtin getHeight() : int
+        "Get the height of this font in pixels, including descenders.";
+    function builtin getHeight(string str, int width, int lineheight) : int
+        "Measure the height of the string when word-wrapped into a box of the given width with the given line height, in pixels.";
+    function builtin getBaseLine() : int
+        "Returns the number of pixels between the top of the font and its baseline.";
+}
+
+class Image {
+    var readonly int width;
+    var readonly int height;
+
+    function builtin scaleToHeight(int height) : Image;
+    function builtin scaleToWidth(int width) : Image;
+    function builtin scaleToRect(int width, int height) : Image;
+    function builtin scaleToFillRect(int width, int height) : Image;
+    function builtin scale(int percent) : Image;
+}
+
+class Graphics {
+    var readonly int width;
+    var readonly int height;
+
+    function builtin setPixel(int x, int y, Color clr);
+    function builtin drawLine(int x1, int y1, int x2, int y2, Color clr);
+    function builtin drawArc(int x, int y, int w, int h, int startAngle, int stopAngle, Color clr);
+    function builtin drawEllipse(int x, int y, int w, int h, Color clr);
+    function builtin drawRect(int x1, int y1, int x2, int y2, Color clr);
+    function builtin fillRect(int x1, int y1, int x2, int y2, Color clr);
+    function builtin drawPolygon(int[] coords, Color clr);
+    function builtin fillPolygon(int[] coords, Color clr);
+    function builtin fill(int x1, int y1, Color fillclr);
+    function builtin fill(int x1, int y1, Color fillclr, Color stopclr);
+    function builtin drawImage(Image img, int x, int y);
+    function builtin drawImage(Image img, int x1, int y1, int x2, int y2);
+    function builtin mergeImage(Image img, int x, int y, int alpha);
+    function builtin drawObject(ContentObject obj, int x1, int y1, int x2, int y2)
+        "Draw a child [class[ContentObject]] in the given rectangle.";
+    function builtin drawText(string text, int x, int y, Font font, Color clr)
+        "Draw a single line of text with no wrapping.";
+    function builtin drawTextCentered(string text, int x1, int y1, int x2, int y2, Font font, Color clr)
+        "Draw a single line of text centered in the given box coordinates.";
+    function builtin drawParagraph(string text, int x1, int y1, int x2, int y2, Font font, Color clr)
+        "Draw a paragraph of text wrapped to fit into the given box coordinates with a default line height.";
+    function builtin drawParagraph(string text, int x1, int y1, int x2, int y2, Font font, Color clr, int lineheight)
+        "Draw a paragraph of text wrapped to fit into the given box coordinates with the given line height.";
+}
+
+
+class Presentation {
+    var string title;
+    var string subtitle;
+    var string author;
+    var Image logo;
+}
+
+
+class ContentObject {
+    function draw(Graphics g);
+    function getPreferredSize() : int[];
+    function getMinimumSize() : int[];
+    function getMaximumSize() : int[];
+}
+
+class ImageObject extends ContentObject {
+    var Image img;
+}
+
+class BulletListObject extends ContentObject {
+    var string[] items;
+}
+
+class SideBySideObject extends ContentObject {
+    var int splitpercent;
+    var ContentObject leftobj;
+    var ContentObject rightobj;
+}
+
+class TwoUpObject extends ContentObject {
+    var int splitpercent;
+    var ContentObject topobj;
+    var ContentObject bottomobj;
+}
+
+class Slide {
+    var Presentation presentation;
+
+    function draw(Graphics g);
+}
+
+class TitledSlide extends Slide {
+    var string title;
+    var ContentObject body;
+}
+
+class AnonymousSlide extends Slide {
+    var ContentObject body;
+}
+
+class TitleSlide extends Slide {
+}
+
+##### Global functions
+
+function builtin loadImage(string filename) : Image
+    "Load an image from a file stored on disk. Returns a null Image if the given file could not be loaded for some reason.";
+
+function builtin loadFont(string filename, int ptsize) : Font
+    "Create a Font object using a font file stored on disk and the desired point size. If the given font or size is unavailable, an alternative may be substituted. A null Font may also be returned if the given font cannot be loaded.";
+
+function builtin makeColor(int r, int g, int b) : Color
+    "Make a new [class[Color]] object based on the given RGB values, where each component ranges from 0 to 255.";
+
+function builtin character(int codepoint) : string
+    "Get the character with the given unicode codepoint.";
+
+##### Properties
+
+property Color clr_background {
+    des = "Main slide background color";
+}
+set clr_background = "#ffffff";
+
+property Color clr_foreground {
+    des = "Main slide foreground color";
+}
+set clr_foreground = "#000000";
+
+property Font font_base {
+    des = "Slideshow Base Font";
+}
+set font_base = ":default";
+
+
+property builtin string LAYOUTDIR {
+    des = "The directory that the layout was loaded from";
+    note = "Layouts can use this to find other data such as images and fonts.";
+    noui = 1;
+}
+
+##### Class Function Implementations
+
+## Default Slide/Content renderers
+
+function Slide::draw(Graphics g) {
+    $g->drawTextCentered("No draw implementation for this slide!",0,0,$g.width-1,$g.height-1,$*font_base,$*clr_foreground);
+}
+
+function ContentObject::draw(Graphics g) {
+    $g->drawRect(0,0,$g.width-1,$g.height-1,$*clr_foreground);
+    $g->drawTextCentered("No draw implementation for this object!",0,0,$g.width-1,$g.height-1,$*font_base,$*clr_foreground);
+}
+
+function ContentObject::getPreferredSize() : int[] {
+    return [1, 1];
+}
+function ContentObject::getMinimumSize() : int[] {
+    return [1, 1];
+}
+function ContentObject::getMaximumSize() : int[] {
+    return [1, 1];
+}
+
+function BulletListObject::draw(Graphics g) {
+    var int cy = $*font_base->getBaseLine();
+    var int sp = $*font_base->getHeight() * 2; #+ ($*font_base->getHeight() / 2);
+
+    foreach var string s ($.items) {
+        $g->drawText(character(149)+" "+$s, 0, $cy, $*font_base, $*clr_foreground);
+        $cy = $cy + $sp;
+    }
+}
+
+function SideBySideObject::draw(Graphics g) {
+    var int splitpos = ($g.width * $.splitpercent) / 100;
+    $g->drawObject($.leftobj, 0, 0, $splitpos - 5, $g.height-1);
+    $g->drawObject($.rightobj, $splitpos + 5, 0, $g.width-1, $g.height-1);
+}
+
+function TwoUpObject::draw(Graphics g) {
+    var int splitpos = ($g.width * $.splitpercent) / 100;
+    $g->drawObject($.topobj, 0, 0, $g.width - 1, $splitpos - 5);
+    $g->drawObject($.bottomobj, 0, $splitpos + 5, $g.width - 1, $g.height - 1);
+}
+
+function ImageObject::draw(Graphics g) {
+    var Image i;
+
+    # If the image is bigger than the container, scale it down.
+    # If it's smaller, just centre it. (avoid yucky scaling if possible)
+    if ($.img.width > $g.width or $.img.height > $g.height) {
+        $i = $.img->scaleToRect($g.width, $g.height);
+    }
+    else {
+        $i = $.img;
+    }
+    var int ix = ($g.width / 2) - ($i.width / 2);
+    var int iy = ($g.height / 2) - ($i.height / 2);
+    $g->drawImage($i, $ix, $iy);
+}
+
+function TitleSlide::draw(Graphics g) {
+    var Font titlefont = $*font_base->scale(150);
+    var int th = $titlefont->getHeight() + 10;
+    var int ty = ($g.height / 2) - ($th / 2);
+    if ($.presentation.subtitle != "") {
+        $g->drawTextCentered($.presentation.subtitle,0,$ty+$th,$g.width-1,$ty+$th+$*font_base->getHeight() + 10,$*font_base,$*clr_foreground);
+        $ty = $ty - (($*font_base->getHeight() + 10) / 2);
+        if ($.presentation.author != "") {
+            var Font authorfont = $*font_base->scale(75);
+            $g->drawTextCentered($.presentation.author,0,$g.height-$*font_base->getHeight()-50,$g.width-1,$g.height-1,$authorfont,$*clr_foreground);
+        }
+    }
+    elseif ($.presentation.author != "") {
+        $g->drawTextCentered($.presentation.author,0,$ty+$th,$g.width-1,$ty+$th+$*font_base->getHeight() + 10,$*font_base,$*clr_foreground);
+        $ty = $ty - (($*font_base->getHeight() + 10) / 2);
+    }
+    $g->drawTextCentered($.presentation.title,0,$ty,$g.width-1,$ty+$th,$titlefont,$*clr_foreground);
+    print "\$th = $th\n\$ty = $ty\ntfh = "+$titlefont->getHeight()+"\n";
+}
+
+function TitledSlide::draw(Graphics g) {
+    var Font titlefont = $*font_base->scale(150);
+    var int th = $titlefont->getHeight() + 20;
+
+    $g->drawTextCentered($.title,0,0,$g.width-1,$th, $titlefont,$*clr_foreground);
+    $g->drawObject($.body, 0, $th, $g.width-1, $g.height-1);
+
+}
+

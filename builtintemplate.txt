@@ -1,0 +1,295 @@
+sub loadFont {
+    my ($ctx, $filename, $ptsize) = @_;
+
+}
+
+sub loadImage {
+    my ($ctx, $filename) = @_;
+
+}
+
+sub makeColor {
+    my ($ctx, $r, $g, $b) = @_;
+
+}
+
+sub Color__Color {
+    my ($ctx, $this, $s) = @_;
+
+}
+
+sub Color__average {
+    my ($ctx, $this, $other) = @_;
+
+}
+
+sub Color__blue {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__blue {
+    my ($ctx, $this, $b) = @_;
+
+}
+
+sub Color__clone {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__darker {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__darker {
+    my ($ctx, $this, $amt) = @_;
+
+}
+
+sub Color__green {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__green {
+    my ($ctx, $this, $g) = @_;
+
+}
+
+sub Color__hue {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__hue {
+    my ($ctx, $this, $h) = @_;
+
+}
+
+sub Color__inverse {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__lighter {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__lighter {
+    my ($ctx, $this, $amt) = @_;
+
+}
+
+sub Color__lightness {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__lightness {
+    my ($ctx, $this, $v) = @_;
+
+}
+
+sub Color__red {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__red {
+    my ($ctx, $this, $r) = @_;
+
+}
+
+sub Color__saturation {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Color__saturation {
+    my ($ctx, $this, $s) = @_;
+
+}
+
+sub Color__set_hsl {
+    my ($ctx, $this, $h, $s, $v) = @_;
+
+}
+
+sub Font__Font {
+    my ($ctx, $this, $fontspec) = @_;
+
+}
+
+sub Font__getBaseLine {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Font__getHeight {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub Font__getHeight {
+    my ($ctx, $this, $str, $width, $lineheight) = @_;
+
+}
+
+sub Font__getWidth {
+    my ($ctx, $this, $str) = @_;
+
+}
+
+sub Font__scale {
+    my ($ctx, $this, $percent) = @_;
+
+}
+
+sub Graphics__drawArc {
+    my ($ctx, $this, $x, $y, $w, $h, $startAngle, $stopAngle, $clr) = @_;
+
+}
+
+sub Graphics__drawEllipse {
+    my ($ctx, $this, $x, $y, $w, $h, $clr) = @_;
+
+}
+
+sub Graphics__drawImage {
+    my ($ctx, $this, $img, $x, $y) = @_;
+
+}
+
+sub Graphics__drawImage {
+    my ($ctx, $this, $img, $x1, $y1, $x2, $y2) = @_;
+
+}
+
+sub Graphics__drawLine {
+    my ($ctx, $this, $x1, $y1, $x2, $y2, $clr) = @_;
+
+}
+
+sub Graphics__drawObject {
+    my ($ctx, $this, $obj, $x1, $y1, $x2, $y2) = @_;
+
+}
+
+sub Graphics__drawParagraph {
+    my ($ctx, $this, $text, $x1, $y1, $x2, $y2, $font, $clr) = @_;
+
+}
+
+sub Graphics__drawParagraph {
+    my ($ctx, $this, $text, $x1, $y1, $x2, $y2, $font, $clr, $lineheight) = @_;
+
+}
+
+sub Graphics__drawPolygon {
+    my ($ctx, $this, $coords, $clr) = @_;
+
+}
+
+sub Graphics__drawRect {
+    my ($ctx, $this, $x1, $y1, $x2, $y2, $clr) = @_;
+
+}
+
+sub Graphics__drawText {
+    my ($ctx, $this, $text, $x, $y, $font, $clr) = @_;
+
+}
+
+sub Graphics__drawTextCentered {
+    my ($ctx, $this, $text, $x1, $y1, $x2, $y2, $font, $clr) = @_;
+
+}
+
+sub Graphics__fill {
+    my ($ctx, $this, $x1, $y1, $fillclr) = @_;
+
+}
+
+sub Graphics__fill {
+    my ($ctx, $this, $x1, $y1, $fillclr, $stopclr) = @_;
+
+}
+
+sub Graphics__fillPolygon {
+    my ($ctx, $this, $coords, $clr) = @_;
+
+}
+
+sub Graphics__fillRect {
+    my ($ctx, $this, $x1, $y1, $x2, $y2, $clr) = @_;
+
+}
+
+sub Graphics__mergeImage {
+    my ($ctx, $this, $img, $x, $y, $alpha) = @_;
+
+}
+
+sub Graphics__mergeImage {
+    my ($ctx, $this, $img, $x1, $y1, $x2, $y2, $alpha) = @_;
+
+}
+
+sub Graphics__setPixel {
+    my ($ctx, $this, $x, $y, $clr) = @_;
+
+}
+
+sub int__zeroPad {
+    my ($ctx, $this, $digits) = @_;
+
+}
+
+sub string__contains {
+    my ($ctx, $this, $sub) = @_;
+
+}
+
+sub string__endsWith {
+    my ($ctx, $this, $sub) = @_;
+
+}
+
+sub string__length {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub string__lower {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub string__repeat {
+    my ($ctx, $this, $n) = @_;
+
+}
+
+sub string__startsWith {
+    my ($ctx, $this, $sub) = @_;
+
+}
+
+sub string__subString {
+    my ($ctx, $this, $start, $length) = @_;
+
+}
+
+sub string__upper {
+    my ($ctx, $this, ) = @_;
+
+}
+
+sub string__upperFirst {
+    my ($ctx, $this, ) = @_;
+
+}
+
